@@ -20,18 +20,26 @@ if (process.argv[2] === "concert-this") {
 
 } else if (process.argv[2] === "spotify-this-song") {
 
+    // * Artist(s)
+
+    // * The song's name
+
+    // * A preview link of the song from Spotify
+
+    // * The album that the song is from
  
 var spotify = new Spotify({
   id: keys.spotify.id,
   secret: keys.spotify.secret
 });
 
-spotify.search({ type: 'track', query: 'Intergalactic' }, function(err, data) {
+let song = process.argv.slice(3).join(" ")
+spotify.search({ type: 'track', query: song }, function(err, data) {
+    let songData = ["Artist(s): " + data.tracks.items[0].album.artists[0].name, "Song Name: " + data.tracks.items[0].name,"Link to Song " + data.tracks.items[0].external_urls.spotify, "Album: " + data.tracks.items[0].album.name].join("\n")
+     console.log(songData);
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-   reduceData = data.tracks.items[0].album.artists
-  console.log(reduceData); 
   });
 
 } else if (process.argv[2] === "movie-this") {
