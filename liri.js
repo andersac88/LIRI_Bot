@@ -3,7 +3,10 @@ require("dotenv").config();
 let keys = require("./keys.js");
 let fs = require("fs");
 var request = require("request");
+let moment = require('moment');
 var Spotify = require("node-spotify-api");
+let second = process.argv[2].toLowerCase();
+let third = process.argv.slice(3);
 
 function concertThis(artist) {
   let URL =
@@ -16,7 +19,7 @@ function concertThis(artist) {
       let concertData = [
         "Venue Name: " + jsonData.venue.name,
         "Venue Location: " + jsonData.venue.city + jsonData.venue.region,
-        "Date of Event " + jsonData.datetime
+        "Date of Event " + moment(jsonData.datetime).format("MM/D/YYYY, h:mm:ss A")
       ].join("\n");
       console.log(concertData);
       fs.appendFile("log.txt", concertData, function(err) {
@@ -78,27 +81,27 @@ function movieThis(movie) {
   });
 }
 
-if (process.argv[2] === "concert-this") {
-  concertThis(process.argv.slice(3).join("+"));
+if (second === "concert-this") {
+  concertThis(third.join("+"));
 }
 
-if (process.argv[2] === "spotify-this-song") {
+if (second === "spotify-this-song") {
   if (process.argv[3]) {
-    spotifyThis(process.argv.slice(3).join(" "));
+    spotifyThis(third.join(" "));
   } else {
     spotifyThis("Ace of Base");
   }
 }
 
-if (process.argv[2] === "movie-this") {
+if (second === "movie-this") {
   if (process.argv[3]) {
-    movieThis(process.argv.slice(3).join("+"));
+    movieThis(third.join("+"));
   } else {
     movieThis("Mr+Nobody");
   }
 }
 
-if (process.argv[2] === "do-what-it-says") {
+if (second === "do-what-it-says") {
   fs.readFile("random.txt", "utf8", function(error, data) {
     if (error) {
       return console.log(error);
