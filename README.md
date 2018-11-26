@@ -16,7 +16,7 @@ To run this search, users will type the following: node liri.js concert-this <Ar
 
 The below screenshot provides an example for a search of Elton John.
 
-![GitHub Logo](./screenshots/concert-this search.png)
+![GitHub Logo](./screenshots/concert-this-search.png)
 
 Once you have entered the necessary text, you run the search by pressing the enter key and the output will be display in the terminal. The below screenshot are the results from the Elton John search.
 
